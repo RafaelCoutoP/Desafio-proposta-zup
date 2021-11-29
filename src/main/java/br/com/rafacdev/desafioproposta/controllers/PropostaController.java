@@ -25,6 +25,9 @@ public class PropostaController {
     @PostMapping
     public ResponseEntity<PropostaResponse> criacaoNovaProposta(@RequestBody @Valid PropostaRequest request){
         Proposta proposta = request.paraProposta();
+        if (propostaRepository.existsByDocumento(request.getDocumento())){
+            return ResponseEntity.unprocessableEntity().build();
+        }
         propostaRepository.save(proposta);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(proposta.getId()).toUri();
         return ResponseEntity.created(uri).body(new PropostaResponse(proposta));
