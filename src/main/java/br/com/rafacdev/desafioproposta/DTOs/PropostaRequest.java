@@ -1,6 +1,7 @@
 package br.com.rafacdev.desafioproposta.DTOs;
 
 import br.com.rafacdev.desafioproposta.entities.Proposta;
+import br.com.rafacdev.desafioproposta.enums.StatusProposta;
 import br.com.rafacdev.desafioproposta.servicosUtils.Documento;
 
 import javax.validation.constraints.Email;
@@ -21,13 +22,16 @@ public class PropostaRequest {
     private String endereco;
     @NotNull @Positive
     private BigDecimal salario;
+    private StatusProposta statusProposta;
 
-    public PropostaRequest(String documento, String email, String nome, String endereco, BigDecimal salario) {
+    public PropostaRequest(String documento, String email, String nome, String endereco, BigDecimal salario,
+           StatusProposta statusProposta) {
         this.documento = documento;
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
         this.salario = salario;
+        this.statusProposta = statusProposta;
     }
 
     public String getDocumento() {
@@ -51,6 +55,6 @@ public class PropostaRequest {
     }
 
     public Proposta paraProposta() {
-        return new Proposta(documento, email, nome, endereco, salario);
+        return new Proposta(documento, email, nome, endereco, salario, statusProposta);
     }
 }

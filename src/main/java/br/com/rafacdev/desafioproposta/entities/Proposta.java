@@ -1,5 +1,7 @@
 package br.com.rafacdev.desafioproposta.entities;
 
+import br.com.rafacdev.desafioproposta.enums.StatusProposta;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -16,17 +18,21 @@ public class Proposta {
     private String nome;
     private String endereco;
     private BigDecimal salario;
+    @Enumerated(EnumType.STRING)
+    private StatusProposta statusProposta;
 
     @Deprecated
     public Proposta(){
     }
 
-    public Proposta(String documento, String email, String nome, String endereco, BigDecimal salario) {
+    public Proposta(String documento, String email, String nome, String endereco, BigDecimal salario,
+           StatusProposta statusProposta) {
         this.documento = documento;
         this.email = email;
         this.nome = nome;
         this.endereco = endereco;
         this.salario = salario;
+        this.statusProposta = statusProposta;
     }
 
     public Long getId() {
@@ -51,5 +57,13 @@ public class Proposta {
 
     public BigDecimal getSalario() {
         return salario;
+    }
+
+    public StatusProposta getStatusProposta() {
+        return statusProposta;
+    }
+
+    public void setStatusProposta(StatusProposta statusProposta) {
+        this.statusProposta = statusProposta;
     }
 }
